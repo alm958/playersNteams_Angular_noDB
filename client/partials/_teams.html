@@ -1,0 +1,22 @@
+<fieldset>
+    <legend>Add Team</legend>
+    <form>
+        <label>Team Name : <input type="text" ng-model='newTeam.name'></label><br>
+        <input type="submit" ng-click='addTeam()' value="Add New Team">
+    </form>
+</fieldset>
+<fieldset ng-if='teamlist.length > 0'>
+    <legend>Team List</legend>
+    <table>
+        <tr>
+            <th> <a ng-click="sortType = 'name'; sortReverse = !sortReverse">Team Name</a></th>
+            <th> <a ng-click="sortType = 'itemNo'; sortReverse = !sortReverse">Team ID#</a></th>
+            <th>Action</th>
+        </tr>
+        <tr ng-repeat="team in teamlist | orderBy:sortType:sortReverse">
+            <td>{{team.name}}</td>
+            <td>{{team.tNum}}</td>
+            <td><button ng-click='delTeam(team.tNum, team.name)'>Delete</button></td>
+        </tr>
+    </table>
+</fieldset>

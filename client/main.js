@@ -9,12 +9,12 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         templateUrl: 'partials/_teams.html',
         controller: 'TeamsController'
     })
-    .when('/players',{
+    .when('/',{
         templateUrl: 'partials/_players.html',
         controller: 'PlayersController'
     })
     .otherwise({
-         redirectTo: "/players"
+         redirectTo: "/"
      });
     $locationProvider.html5Mode(true);
 }]);

@@ -1,15 +1,27 @@
 {
   "name": "PlayersAndTeams",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.14.0"
-  }
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alm958/playersNteams_Angular_noDB.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alm958/playersNteams_Angular_noDB/issues"
+  },
+  "homepage": "https://github.com/alm958/playersNteams_Angular_noDB#readme",
+  "description": ""
 }

@@ -14,6 +14,8 @@ app.use(express.static(path.join(__dirname,'./bower_components')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
+require('./server/config/mongoose_setup');
+require('./server/config/routes')(app);
 
 
 app.listen(port, function(){

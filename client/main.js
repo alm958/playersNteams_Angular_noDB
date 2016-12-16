@@ -13,8 +13,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         templateUrl: 'partials/_players.html',
         controller: 'PlayersController'
     })
+    .when('/updatePlayer/:id/:name',{
+        templateUrl: 'partials/_updatePlayer.html',
+        controller: 'PlayersController'
+    })
     .otherwise({
          redirectTo: "/"
      });
-    $locationProvider.html5Mode(true);
 }]);

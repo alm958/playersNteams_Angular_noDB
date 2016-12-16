@@ -1,17 +1,44 @@
-app.factory('playerFactory', function(){
+app.factory('playerFactory', ['$http', function($http){
     var pFactory = {};
     pFactory.playerlist = [];
-    pFactory.pCounter = 0;
     pFactory.addPlayer = function(player){
-        pFactory.playerlist.push(player);
-        pFactory.pCounter += 1
+        $http.post('/players', player)
+            .then(function(playeradded){
+                pFactory.playerlist.push(playeradded);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
     pFactory.getPlayers = function(callback){
-        callback(pFactory.playerlist)
+        $http.get('/players')
+            .then(function(players){
+                console.log(players);
+                pFactory.playerlist = players.data;
+                console.log(pFactory.playerlist);
+                callback(pFactory.playerlist);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
-    pFactory.delPlayer = function(pNum){
-        var delIndex = pFactory.playerlist.findIndex(x => x.pNum === Number(pNum));
-        pFactory.playerlist.splice( delIndex, 1 );
+    pFactory.delPlayer = function(id){
+        $http.delete(`/players/${id}`)
+            .then(function(response){
+                console.log(response);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+    }
+    pFactory.updatePlayer = function(id){
+        $http.put(`/players/${id}`)
+            .then(function(updatedPlayer){
+                console.log(updatedPlayer);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
     pFactory.AddPtoTeam = function(pName, team){
         var updateIndex = pFactory.playerlist.findIndex(x => x.name === pName);
@@ -43,4 +70,4 @@ app.factory('playerFactory', function(){
         };
     }
     return pFactory;
-})
+}])

@@ -48,11 +48,14 @@ app.factory('playerFactory', ['$http', function($http){
     pFactory.findPlayer = function(id) {
       return pFactory.playerlist.find(player => player._id === id);
     };
-    pFactory.AddPtoTeam = function(pName, team){
-        var updateIndex = pFactory.playerlist.findIndex(x => x.name === pName);
-        console.log(updateIndex);
-        pFactory.playerlist[updateIndex].team = team;
-        console.log(pFactory.playerlist[updateIndex]);
+    pFactory.AddPtoTeam = function(pId, tId){
+        $http.put(`/players/${pId}/${tId}`)
+            .then(function(response){
+                console.log(response);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
     pFactory.getSPlayers = function(callback){
         $http.get('/players/signed')

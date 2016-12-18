@@ -9,7 +9,7 @@ module.exports = function(app){
     app.put('/players/:id', playersController.update);
     app.get('/players/unsigned', playersController.indexUnsigned);
     app.get('/players/signed', playersController.indexSigned);
-    // app.put('players/addTeam/:id', playersController.addTeam);
+    app.put('/players/:pId/:tId', playersController.addTeam);
     //need route for removing team attribute from players when a team is deleted
 
     app.get('/teams', teamsController.index);

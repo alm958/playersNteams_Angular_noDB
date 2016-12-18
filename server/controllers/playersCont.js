@@ -59,7 +59,7 @@ module.exports = {
             });
     },
     indexSigned: function(req, res){
-        Player.find({team: {$exists: true}})
+        Player.find({team: {$exists: true}}).populate('team')
             .then(function(unsignedPlayers){
                 res.json(unsignedPlayers);
             })
@@ -68,5 +68,20 @@ module.exports = {
                 res.json(err);
             });
     },
+    addTeam: function(req, res){
+        console.log("in addTeam");
+        console.log(req.params.pId);
+        console.log(req.params.tId);
+        Player.findByIdAndUpdate(req.params.pId, { $set: { team: req.params.tId }}, { new: true})
+            .then(function(updatedPlayer){
+                console.log(updatedPlayer);
+                res.json(updatedPlayer);
+            })
+            .catch(function(err){
+                console.log(err);
+                res.json(err);
+            });
+    }
+
 
 }

@@ -8,7 +8,7 @@
         </label>
 
         <label>Team Name :
-            <select ng-model='updateP.team'>
+            <select ng-model='updateP.tId'>
                 <option ng-repeat='team in teamlist'value="{{team._id}}">{{team.name}}</option>
             </select>
         </label>
@@ -25,7 +25,7 @@
         </tr>
         <tr ng-repeat="SPlayer in SPList | orderBy:sortType:sortReverse">
             <td>{{SPlayer.name}}</td>
-            <td>{{SPlayer.team}}</td>
+            <td>{{SPlayer.team.name}}</td>
             <td><button ng-click='cut(SPlayer.pNum)'>Cut from team</button></td>
         </tr>
     </table>

@@ -15,12 +15,12 @@ app.controller('AssociationsController', ['$scope', '$route', 'teamFactory', 'pl
     $scope.SPlist = playerFactory.SPlist;
     $scope.addPtoTeam = function(){
         console.log($scope.updateP.pId);
-        console.log($scope.updateP.team);
-        playerFactory.AddPtoTeam($scope.updateP.pId, $scope.updateP.team);
+        console.log($scope.updateP.tId);
+        playerFactory.AddPtoTeam($scope.updateP.pId, $scope.updateP.tId);
         $scope.updateP = {};
         playerFactory.getSPlayers(GetSignedPList);
         playerFactory.getUSPlayers(GetUnSignedPList);
-        console.log($scope.SPList);
+        console.log($scope.SPlist);
     }
     $scope.cut = function(pNum){
         playerFactory.cut(pNum);
@@ -34,7 +34,7 @@ app.controller('AssociationsController', ['$scope', '$route', 'teamFactory', 'pl
         playerFactory.getSPlayers(GetSignedPList);
         playerFactory.getUSPlayers(GetUnSignedPList);
         teamFactory.getTeams(GetTList);
-        console.log($scope.USPList);
+        console.log($scope.USPlist);
     };
     init();
 }]);

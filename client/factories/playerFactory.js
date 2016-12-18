@@ -1,6 +1,8 @@
 app.factory('playerFactory', ['$http', function($http){
     var pFactory = {};
     pFactory.playerlist = [];
+    pFactory.USPlist = [];
+    pFactory.SPlist = [];
     pFactory.addPlayer = function(player){
         $http.post('/players', player)
             .then(function(playeradded){
@@ -13,10 +15,8 @@ app.factory('playerFactory', ['$http', function($http){
     pFactory.getPlayers = function(callback){
         $http.get('/players')
             .then(function(players){
-                console.log(players);
                 pFactory.playerlist = players.data;
-                console.log(pFactory.playerlist);
-                callback(pFactory.playerlist);
+                callback(pFactory.playerlist)
             })
             .catch(function(err){
                 console.log(err);
@@ -31,15 +31,23 @@ app.factory('playerFactory', ['$http', function($http){
                 console.log(err);
             });
     }
-    pFactory.updatePlayer = function(id){
-        $http.put(`/players/${id}`)
-            .then(function(updatedPlayer){
-                console.log(updatedPlayer);
+    pFactory.updatePlayer = function(player, callback){
+        $http.put(`/players/${player._id}`, player)
+            .then(function(response){
+                var player = response.data;
+                var updateIndex = pFactory.playerlist.findIndex(x => x._id === player._id);
+                if (updateIndex > -1) {
+                 pFactory.playerlist[updateIndex] = player;
+                 callback(player);
+                }
             })
             .catch(function(err){
                 console.log(err);
             });
     }
+    pFactory.findPlayer = function(id) {
+      return pFactory.playerlist.find(player => player._id === id);
+    };
     pFactory.AddPtoTeam = function(pName, team){
         var updateIndex = pFactory.playerlist.findIndex(x => x.name === pName);
         console.log(updateIndex);
@@ -47,14 +55,24 @@ app.factory('playerFactory', ['$http', function($http){
         console.log(pFactory.playerlist[updateIndex]);
     }
     pFactory.getSPlayers = function(callback){
-        var SPlayers = pFactory.playerlist.filter(x => !(typeof x.team === "undefined" ));
-        console.log(SPlayers);
-        callback(SPlayers)
+        $http.get('/players/signed')
+            .then(function(SPlayers){
+                pFactory.SPlist = SPlayers.data;
+                callback(pFactory.SPlist)
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
     pFactory.getUSPlayers = function(callback){
-        var USPlayers = pFactory.playerlist.filter(x => (typeof x.team === "undefined" ));
-        console.log(USPlayers);
-        callback(USPlayers)
+        $http.get('/players/unsigned')
+            .then(function(USPlayers){
+                pFactory.USPlist = USPlayers.data;
+                callback(pFactory.USPlist)
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
     pFactory.cut = function(pNum){
         var cutIndex = pFactory.playerlist.findIndex(x => x.pNum === Number(pNum));

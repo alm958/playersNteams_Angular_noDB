@@ -1,17 +1,33 @@
-app.factory('teamFactory', function(){
+app.factory('teamFactory', ['$http', function($http){
     var tFactory = {};
     tFactory.teamlist = [];
-    tFactory.tCounter = 0;
     tFactory.addTeam = function(team){
-        tFactory.teamlist.push(team);
-        tFactory.tCounter += 1
+        $http.post('/teams', team)
+            .then(function(teamadded){
+                tFactory.teamlist.push(teamadded);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
     tFactory.getTeams = function(callback){
-        callback(tFactory.teamlist)
+        $http.get('/teams')
+            .then(function(teams){
+                tFactory.teamlist = teams.data;
+                callback(tFactory.teamlist)
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
-    tFactory.delTeam = function(tNum){
-        var delIndex = tFactory.teamlist.findIndex(x => x.tNum === Number(tNum));
-        tFactory.teamlist.splice( delIndex, 1 );
+    tFactory.delTeam = function(id){
+        $http.delete(`/teams/${id}`)
+            .then(function(response){
+                console.log(response);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
     return tFactory;
-})
+}])

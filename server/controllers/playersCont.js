@@ -36,7 +36,10 @@ module.exports = {
             });
     },
     update: function(req, res){
-        Player.update({_id:req.param.id}, req.body)
+        console.log("in update");
+        console.log(req.params.id);
+        console.log(req.body);
+        Player.findByIdAndUpdate(req.params.id, req.body, { new: true})
             .then(function(updatedPlayer){
                 res.json(updatedPlayer);
             })
@@ -44,6 +47,26 @@ module.exports = {
                 console.log(err);
                 res.json(err);
             });
-    }
+    },
+    indexUnsigned: function(req, res){
+        Player.find({team: {$exists: false}})
+            .then(function(unsignedPlayers){
+                res.json(unsignedPlayers);
+            })
+            .catch(function(err){
+                console.log(err);
+                res.json(err);
+            });
+    },
+    indexSigned: function(req, res){
+        Player.find({team: {$exists: true}})
+            .then(function(unsignedPlayers){
+                res.json(unsignedPlayers);
+            })
+            .catch(function(err){
+                console.log(err);
+                res.json(err);
+            });
+    },
 
 }

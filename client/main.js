@@ -13,7 +13,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
         templateUrl: 'partials/_players.html',
         controller: 'PlayersController'
     })
-    .when('/updatePlayer/:id/:name',{
+    .when('/updatePlayer/:id',{
         templateUrl: 'partials/_updatePlayer.html',
         controller: 'PlayersController'
     })

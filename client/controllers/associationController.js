@@ -11,10 +11,12 @@ app.controller('AssociationsController', ['$scope', '$route', 'teamFactory', 'pl
     function GetUnSignedPList(USPList){
         $scope.USPList = USPList;
     }
+    $scope.USPlist = playerFactory.USPlist;
+    $scope.SPlist = playerFactory.SPlist;
     $scope.addPtoTeam = function(){
-        console.log($scope.updateP.pName);
+        console.log($scope.updateP.pId);
         console.log($scope.updateP.team);
-        playerFactory.AddPtoTeam($scope.updateP.pName, $scope.updateP.team);
+        playerFactory.AddPtoTeam($scope.updateP.pId, $scope.updateP.team);
         $scope.updateP = {};
         playerFactory.getSPlayers(GetSignedPList);
         playerFactory.getUSPlayers(GetUnSignedPList);

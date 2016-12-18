@@ -2,13 +2,14 @@
     <legend>Add a Player to a Team</legend>
     <form>
         <label>Player Name :
-            <select ng-model='updateP.pName'>
-                <option ng-repeat='USPlayer in USPList'value="{{USPlayer.name}}">{{USPlayer.name}}</option>
+            <select ng-model='updateP.pId'>
+                <option ng-repeat='USPlayer in USPList'value="{{USPlayer._id}}">{{USPlayer.name}}</option>
             </select>
         </label>
+
         <label>Team Name :
             <select ng-model='updateP.team'>
-                <option ng-repeat='team in teamlist'value="{{team.name}}">{{team.name}}</option>
+                <option ng-repeat='team in teamlist'value="{{team._id}}">{{team.name}}</option>
             </select>
         </label>
         <input type="submit" ng-click='addPtoTeam()' value="Add to Team">

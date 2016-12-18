@@ -1,7 +1,13 @@
-<fieldset>
+<fieldset ng-init='findPlayerById()'>
     <legend>Update Player</legend>
-    <form>
-        <label>Player Name : <input type="text" ng-model='UpdatePlayer.name' value='$route.params.name'></label><br>
-        <input type="submit" ng-click='updatePlayer(id)' value="Update Player">
+    <form name='update-player' novalidate>
+        <label>Player Name : <input type="text" ng-model='player.name' required></label><br>
+        <input type="submit" ng-click='updatePlayer()' value="Update Player" ng-disabled='update-player.$invalid'>
     </form>
+</fieldset>
+<fieldset ng-if='UpdatedPlayer'>
+    <legend>Updated Player</legend>
+    <ul>
+        <li>Name : <span ng-bind='UpdatedPlayer.name'></span></li>
+    </ul>
 </fieldset>

@@ -1,8 +1,8 @@
-<fieldset>
+<fieldset ng-init='getPlayers()'>
     <legend>Add Player</legend>
-    <form>
-        <label>Player Name : <input type="text" ng-model='newPlayer.name'></label><br>
-        <input type="submit" ng-click='addPlayer()' value="Add New Player">
+    <form novalidate name='nPlayer'>
+        <label>Player Name : <input type="text" ng-model='newPlayer.name' required></label><br>
+        <input type="submit" ng-click='addPlayer() && $setPristine' value="Add New Player" ng-disabled='nPlayer.$invalid'>
     </form>
 </fieldset>
 <fieldset ng-if='playerlist.length > 0'>
@@ -15,7 +15,7 @@
         <tr ng-repeat="player in playerlist | orderBy:sortType:sortReverse">
             <td ng-bind='player.name'></td>
             <td><button ng-click='delPlayer(player._id)'>Delete</button>
-                <a href="#!/updatePlayer/{{player._id}}/{{player.name}}"><button>Update</button></a>
+                <a href="#!/updatePlayer/{{player._id}}"><button>Update</button></a>
             </td>
         </tr>
     </table>

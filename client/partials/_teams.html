@@ -1,8 +1,8 @@
-<fieldset>
+<fieldset ng-init='getTeams()'>
     <legend>Add Team</legend>
-    <form>
-        <label>Team Name : <input type="text" ng-model='newTeam.name'></label><br>
-        <input type="submit" ng-click='addTeam()' value="Add New Team">
+    <form novalidate ng-pristine name='nTeam'>
+        <label>Team Name : <input type="text" ng-model='newTeam.name' ng-required="true"></label><br>
+        <input type="submit" value="Add New Team" ng-click='addTeam() && $setPristine()' ng-disabled='nTeam.$invalid'>
     </form>
 </fieldset>
 <fieldset ng-if='teamlist.length > 0'>
@@ -10,13 +10,11 @@
     <table>
         <tr>
             <th> <a ng-click="sortType = 'name'; sortReverse = !sortReverse">Team Name</a></th>
-            <th> <a ng-click="sortType = 'itemNo'; sortReverse = !sortReverse">Team ID#</a></th>
             <th>Action</th>
         </tr>
         <tr ng-repeat="team in teamlist | orderBy:sortType:sortReverse">
-            <td>{{team.name}}</td>
-            <td>{{team.tNum}}</td>
-            <td><button ng-click='delTeam(team.tNum, team.name)'>Delete</button></td>
+            <td ng-bind='team.name'></td>
+            <td><button ng-click='delTeam(team._id)'>Delete</button></td>
         </tr>
     </table>
 </fieldset>

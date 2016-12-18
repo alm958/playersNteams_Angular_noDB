@@ -87,14 +87,15 @@ app.factory('playerFactory', ['$http', function($http){
                 console.log(err);
             });
     }
-    pFactory.liquidate = function(tName){
-        console.log(tName);
-        var disbandedPlayers = pFactory.playerlist.filter(x => (x.team === tName ));
-        console.log(disbandedPlayers);
-        for (var i = 0; i < disbandedPlayers.length; i++){
-            console.log(disbandedPlayers[i]);
-            delete disbandedPlayers[i].team;
-        };
+    pFactory.liquidate = function(id){
+        console.log("in PF liquidate");
+        $http.put(`/playersLiquidate/${id}`)
+            .then(function(response){
+                console.log(response);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
     return pFactory;
 }])

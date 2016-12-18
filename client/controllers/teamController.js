@@ -13,9 +13,10 @@ app.controller('TeamsController', ['$scope', '$route','$routeParams', 'teamFacto
     };
     $scope.delTeam = function(id){
         console.log(id);
+        playerFactory.liquidate(id);
         teamFactory.delTeam(id);
-        // playerFactory.liquidate(tName);
         teamFactory.getTeams(GetList);
+        
     };
     $scope.getTeams = function(){
         teamFactory.getTeams(GetList);

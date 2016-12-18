@@ -94,5 +94,17 @@ module.exports = {
                 console.log(err);
                 res.json(err);
             });
+    },
+    liquidate: function(req, res){
+        console.log("in liquidate");
+        Player.update({team: req.params.id}, { $unset: { team: 1 }}, { multi: true })
+            .then(function(response){
+                console.log('liquidate successful');
+                console.log(response);
+            })
+            .catch(function(err){
+                console.log(err);
+                res.json(err);
+            });
     }
 }

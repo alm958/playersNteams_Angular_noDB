@@ -20,7 +20,7 @@
     <table>
         <tr>
             <th> <a ng-click="sortType = 'name'; sortReverse = !sortReverse">Name</a></th>
-            <th> <a ng-click="sortType = 'team'; sortReverse = !sortReverse">Team</a></th>
+            <th> <a ng-click="sortType = 'team.name'; sortReverse = !sortReverse">Team</a></th>
             <th>Action</th>
         </tr>
         <tr ng-repeat="SPlayer in SPList | orderBy:sortType:sortReverse">

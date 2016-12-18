@@ -22,11 +22,12 @@ app.controller('AssociationsController', ['$scope', '$route', 'teamFactory', 'pl
         playerFactory.getUSPlayers(GetUnSignedPList);
         console.log($scope.SPlist);
     }
-    $scope.cut = function(pNum){
-        playerFactory.cut(pNum);
+    $scope.cut = function(pId){
+        console.log('in AC cut');
+        console.log(pId);
+        playerFactory.cut(pId);
         playerFactory.getSPlayers(GetSignedPList);
         playerFactory.getUSPlayers(GetUnSignedPList);
-
     }
     var init = function(){
         console.log('running init func');

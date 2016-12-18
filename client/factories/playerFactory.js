@@ -77,9 +77,15 @@ app.factory('playerFactory', ['$http', function($http){
                 console.log(err);
             });
     }
-    pFactory.cut = function(pNum){
-        var cutIndex = pFactory.playerlist.findIndex(x => x.pNum === Number(pNum));
-        delete pFactory.playerlist[cutIndex].team;
+    pFactory.cut = function(id){
+        console.log('in PF cut');
+        $http.put(`/playerCut/${id}`)
+            .then(function(response){
+                console.log(response);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
     pFactory.liquidate = function(tName){
         console.log(tName);

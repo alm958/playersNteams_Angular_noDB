@@ -68,8 +68,21 @@ module.exports = {
                 res.json(err);
             });
     },
+    cut: function(req, res){
+        console.log("now in cut");
+        console.log(req.params.pId);
+        Player.findByIdAndUpdate(req.params.id, { $unset: { team: 1 }}, { new: true})
+            .then(function(updatedPlayer){
+                console.log(updatedPlayer);
+                res.json(updatedPlayer);
+            })
+            .catch(function(err){
+                console.log(err);
+                res.json(err);
+            });
+    },
     addTeam: function(req, res){
-        console.log("in addTeam");
+        console.log("in my addTeam");
         console.log(req.params.pId);
         console.log(req.params.tId);
         Player.findByIdAndUpdate(req.params.pId, { $set: { team: req.params.tId }}, { new: true})
@@ -82,6 +95,4 @@ module.exports = {
                 res.json(err);
             });
     }
-
-
 }

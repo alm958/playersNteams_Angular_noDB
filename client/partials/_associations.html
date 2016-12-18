@@ -26,7 +26,7 @@
         <tr ng-repeat="SPlayer in SPList | orderBy:sortType:sortReverse">
             <td>{{SPlayer.name}}</td>
             <td>{{SPlayer.team.name}}</td>
-            <td><button ng-click='cut(SPlayer.pNum)'>Cut from team</button></td>
+            <td><button ng-click='cut(SPlayer._id)'>Cut from team</button></td>
         </tr>
     </table>
 </fieldset>

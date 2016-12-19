@@ -13,14 +13,17 @@ app.controller('PlayersController', ['$scope', '$route','$routeParams', 'playerF
 
     $scope.addPlayer = function(){
         console.log($scope.newPlayer);
-        playerFactory.addPlayer($scope.newPlayer);
+        playerFactory.addPlayer($scope.newPlayer, function(){
+            $scope.getPlayers();
+        });
         $scope.newPlayer = {};
-        $scope.getPlayers();
     };
     $scope.delPlayer = function(id){
         console.log(id);
-        playerFactory.delPlayer(id);
-        playerFactory.getPlayers(GetList);
+        playerFactory.delPlayer(id, function(){
+            playerFactory.getPlayers(GetList);
+        });
+
     };
     $scope.updatePlayer = function(){
         console.log($scope.player);

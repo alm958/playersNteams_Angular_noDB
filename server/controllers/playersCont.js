@@ -101,6 +101,7 @@ module.exports = {
             .then(function(response){
                 console.log('liquidate successful');
                 console.log(response);
+                res.json(response);
             })
             .catch(function(err){
                 console.log(err);

@@ -3,10 +3,11 @@ app.factory('playerFactory', ['$http', function($http){
     pFactory.playerlist = [];
     pFactory.USPlist = [];
     pFactory.SPlist = [];
-    pFactory.addPlayer = function(player){
+    pFactory.addPlayer = function(player, callback){
         $http.post('/players', player)
             .then(function(playeradded){
                 pFactory.playerlist.push(playeradded);
+                callback();
             })
             .catch(function(err){
                 console.log(err);
@@ -22,10 +23,11 @@ app.factory('playerFactory', ['$http', function($http){
                 console.log(err);
             });
     }
-    pFactory.delPlayer = function(id){
+    pFactory.delPlayer = function(id, callback){
         $http.delete(`/players/${id}`)
             .then(function(response){
                 console.log(response);
+                callback();
             })
             .catch(function(err){
                 console.log(err);
@@ -48,10 +50,11 @@ app.factory('playerFactory', ['$http', function($http){
     pFactory.findPlayer = function(id) {
       return pFactory.playerlist.find(player => player._id === id);
     };
-    pFactory.AddPtoTeam = function(pId, tId){
+    pFactory.AddPtoTeam = function(pId, tId, callback){
         $http.put(`/players/${pId}/${tId}`)
             .then(function(response){
                 console.log(response);
+                callback();
             })
             .catch(function(err){
                 console.log(err);
@@ -77,21 +80,23 @@ app.factory('playerFactory', ['$http', function($http){
                 console.log(err);
             });
     }
-    pFactory.cut = function(id){
+    pFactory.cut = function(id, callback){
         console.log('in PF cut');
         $http.put(`/playerCut/${id}`)
             .then(function(response){
                 console.log(response);
+                callback();
             })
             .catch(function(err){
                 console.log(err);
             });
     }
-    pFactory.liquidate = function(id){
+    pFactory.liquidate = function(id, callback){
         console.log("in PF liquidate");
         $http.put(`/playersLiquidate/${id}`)
             .then(function(response){
-                console.log(response);
+                console.log('back from liquidate. delTeam is next');
+                callback();
             })
             .catch(function(err){
                 console.log(err);

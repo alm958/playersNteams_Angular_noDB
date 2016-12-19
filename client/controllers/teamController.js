@@ -7,16 +7,18 @@ app.controller('TeamsController', ['$scope', '$route','$routeParams', 'teamFacto
     $scope.teamlist = teamFactory.teamlist;
     $scope.addTeam = function(){
         console.log($scope.newTeam);
-        teamFactory.addTeam($scope.newTeam);
+        teamFactory.addTeam($scope.newTeam, function(){
+            teamFactory.getTeams(GetList);
+        });
         $scope.newTeam = {};
-        teamFactory.getTeams(GetList);
+
     };
     $scope.delTeam = function(id){
-        console.log(id);
-        playerFactory.liquidate(id);
-        teamFactory.delTeam(id);
-        teamFactory.getTeams(GetList);
-        
+        playerFactory.liquidate(id, function(){
+            teamFactory.delTeam(id, function(){
+                teamFactory.getTeams(GetList);
+            })
+        })
     };
     $scope.getTeams = function(){
         teamFactory.getTeams(GetList);

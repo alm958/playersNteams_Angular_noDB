@@ -16,18 +16,19 @@ app.controller('AssociationsController', ['$scope', '$route', 'teamFactory', 'pl
     $scope.addPtoTeam = function(){
         console.log($scope.updateP.pId);
         console.log($scope.updateP.tId);
-        playerFactory.AddPtoTeam($scope.updateP.pId, $scope.updateP.tId);
+        playerFactory.AddPtoTeam($scope.updateP.pId, $scope.updateP.tId, function(){
+            playerFactory.getSPlayers(GetSignedPList);
+            playerFactory.getUSPlayers(GetUnSignedPList);
+        });
         $scope.updateP = {};
-        playerFactory.getSPlayers(GetSignedPList);
-        playerFactory.getUSPlayers(GetUnSignedPList);
-        console.log($scope.SPlist);
     }
     $scope.cut = function(pId){
         console.log('in AC cut');
         console.log(pId);
-        playerFactory.cut(pId);
-        playerFactory.getSPlayers(GetSignedPList);
-        playerFactory.getUSPlayers(GetUnSignedPList);
+        playerFactory.cut(pId, function(){
+            playerFactory.getSPlayers(GetSignedPList);
+            playerFactory.getUSPlayers(GetUnSignedPList);
+        });
     }
     var init = function(){
         console.log('running init func');
